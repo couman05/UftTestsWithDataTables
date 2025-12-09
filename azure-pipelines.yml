@@ -6,14 +6,13 @@
 trigger:
 - master
 
-pool:
-  vmImage: ubuntu-latest
+pool: Default
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  - task: octane-test-runner-start-task-private@1
+    inputs:
+      OctaneServiceConnection: 'octaneConnectionForDiscovery'
+      WorkspaceList: '4005'
+      Framework: 'uft'
+      GitRepositoryURL: 'https://github.com/vivienknecht/UftTestsWithDataTables'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
