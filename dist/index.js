@@ -40610,7 +40610,7 @@ class Discovery {
                 }
                 const existsInModified = modifiedDataTables.some(pair => (pair.oldValue.name === dataTable.name && pair.oldValue.relativePath === dataTable.relativePath)
                     || (pair.newValue.name === dataTable.name && pair.newValue.relativePath === dataTable.relativePath));
-                const dataTableExists = (0, octaneClient_1.checkIfScmResourceFileExists)(this.octaneSDKConnection, this.sharedSpace, this.workspace, dataTable.name, dataTable.relativePath);
+                const dataTableExists = yield (0, octaneClient_1.checkIfScmResourceFileExists)(this.octaneSDKConnection, this.sharedSpace, this.workspace, dataTable.name, dataTable.relativePath);
                 if (!existsInModified && !dataTableExists) {
                     changedDataTables.push(Object.assign(Object.assign({}, dataTable), { changeType: "added" }));
                     LOGGER.info("This is a new data table: " + dataTable.name);
