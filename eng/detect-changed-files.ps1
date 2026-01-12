@@ -30,9 +30,15 @@ Write-Host "Diffing $lastCommit -> HEAD"
 
 # Write-Host "##vso[task.setvariable variable=MODIFIED_FILES]$encoded"
 $files = git diff --name-status -M -z $lastCommit HEAD
+if (-not $files) { $files = "" }
 
 $path = "$env:PIPELINE_WORKSPACE/modified_files.bin"
-[System.IO.File]::WriteAllBytes($path, [Text.Encoding]::UTF8.GetBytes($files))
+
+# write safely
+[System.IO.File]::WriteAllBytes(
+    $path,
+    [Text.Encoding]::UTF8.GetBytes($files)
+)
 
 Write-Host "Modified files written to $path"
 
