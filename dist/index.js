@@ -40413,6 +40413,7 @@ class Discovery {
             var _a, _b, _c;
             const repoID = yield (0, octaneClient_1.getScmRepo)(this.octaneSDKConnection, this.octaneApi);
             let existingTests;
+            LOGGER.info("Is full scan: " + this.isFullScan);
             if (this.isFullScan) {
                 existingTests = yield (0, octaneClient_1.getExistingUFTTests)(this.octaneSDKConnection, this.octaneApi);
             }
@@ -41153,10 +41154,11 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             convertTests();
         }
         else if (actionType === "discoverTests") {
-            if (!path && !octaneUrl && !sharedSpace && !workspace && !clientId && !clientSecret) {
-                tl.setResult(tl.TaskResult.Failed, "You have to specify all Octane connection parameters and the path to the repository to discover UFT tests from. ");
+            if (!path && !isFullScan && !octaneUrl && !sharedSpace && !workspace && !clientId && !clientSecret) {
+                tl.setResult(tl.TaskResult.Failed, "You have to specify all Octane connection parameters, the path to the repository to discover UFT tests from and whether full scan or sync is required.");
                 return;
             }
+            LOGGER.info("FUll scan is set to: " + isFullScan);
             yield discoverTests(path, isFullScan, octaneUrl, sharedSpace, workspace, clientId, clientSecret);
         }
     }
@@ -41208,6 +41210,7 @@ const loadArguments = () => {
     })
         .option("isFullScan", {
         type: "boolean",
+        demandOption: false,
         describe: "Specify whether full scan or sync is required"
     })
         .option("path", {
