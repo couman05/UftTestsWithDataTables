@@ -21,16 +21,16 @@ steps:
 
   # - task: octane-start-task-private@1
   #   inputs:
-  #     OctaneServiceConnection: "octaneConnectionForDiscovery"
-  #     WorkspaceList: "16001"
+  #     OctaneServiceConnection: 'felix1OctaneConnection'
+  #     WorkspaceList: '1002'
   #     CreatePipelineCheckbox: true
 
   - task: octane-test-runner-start-task-private@1
     inputs:
-      OctaneServiceConnection: "octaneConnectionForDiscovery"
-      WorkspaceList: "4001"
-      Framework: "uft"
-      GitRepositoryURL: "https://github.com/vivienknecht/UftTestsWithDataTables"
+      OctaneServiceConnection: 'octaneConnectionForDiscovery'
+      WorkspaceList: '5001'
+      Framework: 'uft'
+      GitRepositoryURL: 'https://github.com/vivienknecht/UftTestsWithDataTables'
 
   - powershell: |
       node dist/index.js --action="convertTests" --framework="uft" --testsToRun=${env:TESTSTORUN} --logLevel=1  
@@ -105,7 +105,6 @@ steps:
     artifact: last-successful
     displayName: "Publish last successful commit SHA"
 
-
   - powershell: |
       Write-Host "Current Directory:"
       Get-Location
@@ -116,10 +115,10 @@ steps:
       # $(testsToRunConverted)
       # "@
       # Set-Content -Path "./build/testsToRun.mtbx" -Value $content -Encoding UTF8
-      Set-Content -Path "./build/testsToRun.mtbx" -Value $env:testsToRunConverted
+      Set-Content -Path "./build/testsToRun.mtbx" -Value $env:testsToRunConverted  -Encoding UTF8
       Set-Content -Path ./build/Props.txt -Value "runType=FileSystem"
       Add-Content -Path ./build/Props.txt -Value "resultsFilename=build\\Results.xml"
-      Add-Content -Path ./build/Props.txt -Value "Test1=$ESCAPED_DIR\\build\\testsToRun.mtbx"
+      Add-Content -Path ./build/Props.txt -Value "Test1=$ESCAPED_DIR\\GUITest1"
       Add-Content -Path ./build/Props.txt -Value "resultUnifiedTestClassname=true"
       Add-Content -Path ./build/Props.txt -Value "resultTestNameOnly=true"
       Get-Content -Path ./build/Props.txt
@@ -134,8 +133,8 @@ steps:
 
   - task: octane-end-task-private@1
     inputs:
-      OctaneServiceConnection: "octaneConnectionForDiscovery"
-      WorkspaceList: "4001"
-      Framework: "uft"
+      OctaneServiceConnection: 'octaneConnectionForDiscovery'
+      WorkspaceList: '5001'
+      Framework: 'uft'
     env:
       UNIT_TEST_RESULTS_GLOB_PATTERN: ${{ parameters.unitTestResultsGlobPattern }}
