@@ -41008,13 +41008,6 @@ const sendCreateTestEventToOctane = (octaneConnection, octaneApi, name, packageN
 exports.sendCreateTestEventToOctane = sendCreateTestEventToOctane;
 const sendUpdateTestEventToOctane = (octaneConnection, octaneApi, testId, name, packageName, description, className, isExecutable) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // let test = await octaneConnection.get(Octane.entityTypes.tests).at(testId).fields('name', 'package', 'class_name', 'description', 'executable').execute();
-        // test.name = name;
-        // test.package = packageName;
-        // test.class_name = className;
-        // test.description = description;
-        // test.executable = isExecutable;
-        //  LOGGER.info("The test to update in Octane is: " + JSON.stringify(test));
         const body = {
             "data": [
                 {
@@ -41029,7 +41022,6 @@ const sendUpdateTestEventToOctane = (octaneConnection, octaneApi, testId, name, 
             ]
         };
         yield octaneConnection.update(alm_octane_js_rest_sdk_1.Octane.entityTypes.tests, body).execute();
-        // await octaneConnection.executeCustomRequest(`${octaneApi}/tests`, Octane.operationTypes.update, body);
     }
     catch (error) {
         LOGGER.error("Error occurred while sending update test event to Octane: " + error.message);
@@ -41044,7 +41036,8 @@ const makeTestNotExecutableInOctane = (octaneConnection, octaneApi, testId) => _
                     "executable": false
                 }]
         };
-        yield octaneConnection.executeCustomRequest(`${octaneApi}/tests`, alm_octane_js_rest_sdk_1.Octane.operationTypes.update, body);
+        yield octaneConnection.update(alm_octane_js_rest_sdk_1.Octane.entityTypes.tests, body).execute();
+        //await octaneConnection.executeCustomRequest(`${octaneApi}/tests`, Octane.operationTypes.update, body);
     }
     catch (error) {
         LOGGER.error("Error occurred while making test not executable in Octane: " + error.message);
