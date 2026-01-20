@@ -41014,6 +41014,7 @@ const sendUpdateTestEventToOctane = (octaneConnection, octaneApi, testId, name, 
         test.class_name = className;
         test.description = description;
         test.executable = isExecutable;
+        LOGGER.info("The test to update in Octane is: " + JSON.stringify(test));
         // const body = {
         //     "data": [
         //         {
