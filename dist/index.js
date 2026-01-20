@@ -41000,7 +41000,6 @@ const sendCreateTestEventToOctane = (octaneConnection, octaneApi, name, packageN
             }
         };
         yield octaneConnection.create(alm_octane_js_rest_sdk_1.Octane.entityTypes.tests, body2).execute();
-        //await octaneConnection.executeCustomRequest(`${octaneApi}/tests`, Octane.operationTypes.create, body);
     }
     catch (error) {
         LOGGER.error("Error occurred while sending create test event to Octane: " + error.message);
@@ -41009,24 +41008,27 @@ const sendCreateTestEventToOctane = (octaneConnection, octaneApi, name, packageN
 exports.sendCreateTestEventToOctane = sendCreateTestEventToOctane;
 const sendUpdateTestEventToOctane = (octaneConnection, octaneApi, testId, name, packageName, description, className, isExecutable) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const body = {
-            "data": [
-                {
-                    "subtype": "test_automated",
-                    "id": testId,
-                    "name": name,
-                    "package": packageName,
-                    "description": description,
-                    "class_name": className,
-                    "executable": isExecutable,
-                    "test_runner": {
-                        "type": "executor",
-                        "id": yield getTestRunnerId(octaneConnection, octaneApi)
-                    }
-                }
-            ]
-        };
-        yield octaneConnection.executeCustomRequest(`${octaneApi}/tests`, alm_octane_js_rest_sdk_1.Octane.operationTypes.update, body);
+        let test = yield octaneConnection.get(alm_octane_js_rest_sdk_1.Octane.entityTypes.tests).at(testId).fields('name', 'package', 'class_name', 'description', 'executable').execute();
+        test.name = name;
+        test.package = packageName;
+        test.class_name = className;
+        test.description = description;
+        test.executable = isExecutable;
+        // const body = {
+        //     "data": [
+        //         {
+        //             "subtype": "test_automated",
+        //             "id": testId,
+        //             "name": name,
+        //             "package": packageName,
+        //             "description": description,
+        //             "class_name": className,
+        //             "executable": isExecutable
+        //         }
+        //     ]
+        // }
+        yield octaneConnection.update(alm_octane_js_rest_sdk_1.Octane.entityTypes.tests, test).execute();
+        // await octaneConnection.executeCustomRequest(`${octaneApi}/tests`, Octane.operationTypes.update, body);
     }
     catch (error) {
         LOGGER.error("Error occurred while sending update test event to Octane: " + error.message);
