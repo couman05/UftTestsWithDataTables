@@ -41148,8 +41148,6 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         }
         else if (actionType === "discoverTests") {
             LOGGER.info("The path is: " + path);
-            const processedEnv = process.env.BUILD_SOURCESDIRECTORY;
-            LOGGER.info("The BUILD_SOURCESDIRECTORY is: " + processedEnv);
             if (!path && !isFullScan && !octaneUrl && !sharedSpace && !workspace && !clientId && !clientSecret) {
                 tl.setResult(tl.TaskResult.Failed, "You have to specify all Octane connection parameters, the path to the repository to discover UFT tests from and whether full scan or sync is required.");
                 return;
@@ -41923,6 +41921,9 @@ const verifyPath = (pathToRepo) => __awaiter(void 0, void 0, void 0, function* (
     if (controlChars.test(pathToRepo)) {
         throw new Error("The provided path contains invalid control characters.");
     }
+    const resolvedPath = path.resolve(pathToRepo);
+    const processedEnv = path.resolve(process.env.BUILD_SOURCESDIRECTORY);
+    LOGGER.info("The BUILD_SOURCESDIRECTORY is: " + processedEnv + " and the resolved path is: " + resolvedPath);
     return true;
 });
 
