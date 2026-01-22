@@ -40762,6 +40762,7 @@ class ScanRepo {
                 else {
                     for (const item of items) {
                         const itemPath = path.join(pathToRepo, item);
+                        LOGGER.info("Scanning item: " + itemPath);
                         const stats = yield fs.promises.lstat(itemPath);
                         if (stats.isDirectory() || stats.isSymbolicLink()) {
                             if (stats.isSymbolicLink()) {
@@ -41936,17 +41937,13 @@ const verifyPath = (pathToRepo) => __awaiter(void 0, void 0, void 0, function* (
     catch (err) {
         throw new Error('The provided path does not exist');
     }
+    if (!stats.isDirectory()) {
+        throw new Error('The provided path is not a directory');
+    }
     const realPath = fs1.realpathSync(resolvedPath);
     if (!realPath.startsWith(allowedRoot)) {
         throw new Error('Path escapes the repository root via symlink');
     }
-    if (!stats.isDirectory()) {
-        throw new Error('The provided path is not a directory');
-    }
-    // const realPath = fs1.realpathSync(resolvedPath);
-    // if (!realPath.startsWith(allowedRoot)) {
-    //   throw new Error('Path escapes the repository root via symlink');
-    // }
     if (realPath === path.parse(realPath).root) {
         throw new Error('The provided path is the root directory, which is not allowed');
     }
