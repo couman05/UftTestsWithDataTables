@@ -25,5 +25,6 @@ declare const getClassNameAtSync: (pathToTest: string) => string;
 declare const getPackageNameAtSync: (className: string) => string;
 declare const removeFalsePositiveDataTables: (tests: AutomatedTest[], scmResourceFiles: ScmResourceFile[]) => Promise<ScmResourceFile[]>;
 declare const removeFalsePositiveDataTablesAtUpdate: (tests: AutomatedTest[], scmResourceFiles: ScmResourceFile[]) => Promise<ScmResourceFile[]>;
-export { getGUITestDoc, getDescriptionForGUITest, convertToHtml, checkIfFileExists, convertToXml, customDOMParser, getAPITestDoc, getDescriptionForAPITest, getTestNameAtSync, getClassNameAtSync, getPackageNameAtSync, removeFalsePositiveDataTables, removeFalsePositiveDataTablesAtUpdate };
+declare const verifyPath: (pathToRepo: string) => Promise<boolean>;
+export { getGUITestDoc, getDescriptionForGUITest, convertToHtml, checkIfFileExists, convertToXml, customDOMParser, getAPITestDoc, getDescriptionForAPITest, getTestNameAtSync, getClassNameAtSync, getPackageNameAtSync, removeFalsePositiveDataTables, removeFalsePositiveDataTablesAtUpdate, verifyPath };
 //# sourceMappingURL=utils.d.ts.map

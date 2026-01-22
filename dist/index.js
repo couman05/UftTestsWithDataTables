@@ -41114,6 +41114,7 @@ const testsToRunConverter_1 = __nccwpck_require__(1644);
 const testsToRunParser_1 = __nccwpck_require__(4745);
 const Discovery_1 = __nccwpck_require__(6672);
 const tl = __nccwpck_require__(358);
+const utils_1 = __nccwpck_require__(5268);
 const LOGGER = new logger_1.default("main.ts");
 let args;
 const convertTests = () => {
@@ -41148,6 +41149,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         }
         else if (actionType === "discoverTests") {
             LOGGER.info("The path is: " + path);
+            yield (0, utils_1.verifyPath)(path);
             if (!path && !isFullScan && !octaneUrl && !sharedSpace && !workspace && !clientId && !clientSecret) {
                 tl.setResult(tl.TaskResult.Failed, "You have to specify all Octane connection parameters, the path to the repository to discover UFT tests from and whether full scan or sync is required.");
                 return;
@@ -41694,7 +41696,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.removeFalsePositiveDataTablesAtUpdate = exports.removeFalsePositiveDataTables = exports.getPackageNameAtSync = exports.getClassNameAtSync = exports.getTestNameAtSync = exports.getDescriptionForAPITest = exports.getAPITestDoc = exports.customDOMParser = exports.convertToXml = exports.checkIfFileExists = exports.convertToHtml = exports.getDescriptionForGUITest = exports.getGUITestDoc = void 0;
+exports.verifyPath = exports.removeFalsePositiveDataTablesAtUpdate = exports.removeFalsePositiveDataTables = exports.getPackageNameAtSync = exports.getClassNameAtSync = exports.getTestNameAtSync = exports.getDescriptionForAPITest = exports.getAPITestDoc = exports.customDOMParser = exports.convertToXml = exports.checkIfFileExists = exports.convertToHtml = exports.getDescriptionForGUITest = exports.getGUITestDoc = void 0;
 const path = __nccwpck_require__(6928);
 const fs = __nccwpck_require__(1943);
 const logger_1 = __nccwpck_require__(7893);
@@ -41926,6 +41928,7 @@ const verifyPath = (pathToRepo) => __awaiter(void 0, void 0, void 0, function* (
     LOGGER.info("The BUILD_SOURCESDIRECTORY is: " + processedEnv + " and the resolved path is: " + resolvedPath);
     return true;
 });
+exports.verifyPath = verifyPath;
 
 
 /***/ }),
