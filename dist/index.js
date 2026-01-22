@@ -41929,7 +41929,13 @@ const verifyPath = (pathToRepo) => __awaiter(void 0, void 0, void 0, function* (
     if (!resolvedPath.startsWith(allowedRoot)) {
         throw new Error('Path escapes the repository root');
     }
-    const stats = fs1.statSync(resolvedPath);
+    let stats;
+    try {
+        stats = fs1.statSync(resolvedPath);
+    }
+    catch (err) {
+        throw new Error('The provided path does not exist');
+    }
     if (!stats.isDirectory()) {
         throw new Error('The provided path is not a directory');
     }
