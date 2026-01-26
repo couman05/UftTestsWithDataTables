@@ -1,1 +1,3 @@
-export declare const convertTests: () => void;
+#!/usr/bin/env node
+export {};
+//# sourceMappingURL=main.d.ts.map
