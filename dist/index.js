@@ -40307,6 +40307,8 @@ class Discovery {
     startDiscovery(path) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.initializeOctaneConnection();
+            const id = yield (0, octaneClient_1.getTestRunnerId)(this.octaneSDKConnection, this.octaneApi);
+            LOGGER.info("the test runner id has been retrieved successfully. is " + id);
             const repoID = yield (0, octaneClient_1.getScmRepo)(this.octaneSDKConnection, this.octaneApi);
             const scanner = new ScanRepo_1.default(path);
             const discovery = yield scanner.scanRepo(path);
