@@ -6,7 +6,7 @@ const testsToRunConverter_1 = require("./testsToRunConverter");
 const logger_1 = require("./utils/logger");
 const LOGGER = new logger_1.default("index.ts");
 const convertTests = (testsToRun, framework, rootDirectory, customFramework) => {
-    LOGGER.warn("USING CONVERT TESTS");
+    LOGGER.warn("USING CONVERT TESTS NEW");
     const parsedTestsToRun = (0, testsToRunParser_1.default)(testsToRun);
     if (testsToRunParser_1.default.length === 0) {
         LOGGER.error("No tests to run have been found.");
