@@ -41379,7 +41379,7 @@ const convertUftTestsToRun = (testsToRun, rootDirectory) => {
         if (testToRun.parameters) {
             Object.entries(testToRun.parameters).forEach(([key, value]) => {
                 if (key === "dataTable") {
-                    value = value.replace("/", "\\");
+                    value = value.replace(/\//g, "\\");
                     externalDataTable = {
                         _attributes: {
                             path: rootDirectory + "\\" + value,
@@ -41400,7 +41400,7 @@ const convertUftTestsToRun = (testsToRun, rootDirectory) => {
         const convertedTests = {
             _attributes: {
                 name: testToRun.testName,
-                path: rootDirectory + "\\" + testToRun.className.replace("/", "\\")
+                path: rootDirectory + "\\" + testToRun.className.replace(/\//g, "\\")
             },
             parameter: parameters,
         };
