@@ -40903,6 +40903,7 @@ const escapeSpecialChars = (input) => {
 const getTestRunnerId = (octaneConnection, octaneApi) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let pipelineName;
+        LOGGER.debug("The Pipeline name:" + process.env.BUILD_DEFINITIONNAME);
         if (process.env.BUILD_DEFINITIONNAME) {
             pipelineName = escapeSpecialChars(process.env.BUILD_DEFINITIONNAME);
         }
