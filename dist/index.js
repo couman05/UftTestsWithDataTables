@@ -41688,7 +41688,7 @@ const determineFileAndChangeType = (modifiedFiles, discoveredTests, existingTest
         }
         if (status === "D") {
             const deletedFile = (_c = modifiedFiles[i++]) !== null && _c !== void 0 ? _c : "";
-            if (deletedFile && re.test(deletedFile.toLowerCase())) {
+            if (deletedFile && deletedFile.match(/\.(st|tsp)$/)) {
                 const className = (0, utils_1.getClassNameAtSync)(deletedFile);
                 const testToDelete = {
                     name: (0, utils_1.getTestNameAtSync)(deletedFile),
@@ -41698,7 +41698,7 @@ const determineFileAndChangeType = (modifiedFiles, discoveredTests, existingTest
                 };
                 testsToDelete.push(testToDelete);
             }
-            else if (deletedFile && deletedFile.match(/\.(xlsx|xls)$/)) {
+            else if (deletedFile && re.test(deletedFile.toLowerCase())) {
                 const deletedDataTable = {
                     name: path.basename(deletedFile),
                     relativePath: deletedFile,
