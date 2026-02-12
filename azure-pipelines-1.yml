@@ -9,10 +9,6 @@ trigger:
 pool: Default
 
 steps:
-  # - task: NodeTool@0
-  #   inputs:
-  #     versionSpec: "22.x"
-  #   displayName: "Use Node.js"
 
   - task: octane-test-runner-start-task-private@1
     inputs:
@@ -25,7 +21,6 @@ steps:
     fetchDepth: 0
 
   - task: DownloadPipelineArtifact@2
-    displayName: "Download last successful commit SHA"
     inputs:
       buildType: "specific"
       project: "$(System.TeamProjectId)"
@@ -34,7 +29,7 @@ steps:
       branchName: "$(Build.SourceBranch)"
       artifactName: "last-successful"
       downloadPath: "$(Pipeline.Workspace)\\last-successful"
-    continueOnError: true
+    displayName: "Download last successful commit SHA"
 
   - powershell: |
       ./eng/detect-changed-files.ps1
