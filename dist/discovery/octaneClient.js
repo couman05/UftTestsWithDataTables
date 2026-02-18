@@ -39,7 +39,9 @@ exports.getTestRunnerId = getTestRunnerId;
 const getScmRepo = (octaneConnection, octaneApi) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const repoUrl = process.env.REPOURL || "";
+        LOGGER.info(repoUrl);
         const scmRepos = yield octaneConnection.executeCustomRequest(`${octaneApi}/scm_repositories/?query=\"repository EQ {url EQ ^${repoUrl}^}\"`, alm_octane_js_rest_sdk_1.Octane.operationTypes.get);
+        LOGGER.info(scmRepos);
         return scmRepos.data[0].id;
     }
     catch (error) {
